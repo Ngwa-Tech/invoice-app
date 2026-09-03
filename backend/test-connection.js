@@ -1,0 +1,17 @@
+const { Client } = require('pg');
+require('dotenv').config();
+
+const client = new Client({
+connectionString: process.env.DIRECT_URL,
+  connectionTimeoutMillis: 8000,
+});
+
+client.connect()
+  .then(() => {
+    console.log('✅ Connected successfully!');
+    return client.end();
+  })
+  .catch((err) => {
+    console.error('❌ Connection failed:', err.message);
+    process.exit(1);
+  });
